@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>THE 8TH FRIEND</title>
+<div class="particles"></div>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+@font-face{
+    font-family: 'HorrorFont';
+    src: url('Music\Nosifer-Regular.ttf') format('truetype');
+}
+
+.title{
+    font-family:'HorrorFont', sans-serif;
+}
+
+.particles{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.spark{
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:#ff3b3b;
+
+    box-shadow:
+    0 0 8px #ff0000,
+    0 0 15px #ff0000,
+    0 0 25px #ff4500;
+
+    animation:sparkFly linear forwards;
+}
+
+@keyframes sparkFly{
+
+    0%{
+        opacity:0;
+        transform:translateY(50px) scale(.3);
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+        transform:translateY(-500px)
+                  translateX(var(--x))
+                  scale(1.5);
+    }
+
+}
+body{
+background:#000;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Anton',sans-serif;
+}
+
+/* Background */
+
+body::before{
+content:'';
+position:absolute;
+inset:0;
+
+background:
+radial-gradient(circle at center,
+rgba(255,0,0,.25),
+transparent 60%);
+
+filter:blur(80px);
+animation:pulse 3s infinite;
+}
+
+.title{
+position:relative;
+text-align:center;
+z-index:10;
+}
+
+/* Individual Words */
+
+.word{
+display:block;
+color:white;
+font-weight:900;
+line-height:.85;
+
+text-shadow:
+0 0 10px red,
+0 0 20px red,
+0 0 40px red,
+0 0 80px red,
+6px 6px 0 #6d0000,
+12px 12px 0 #300000;
+
+opacity:0;
+}
+
+/* THE */
+
+.the{
+font-size:7vw;
+transform:translateX(-2000px);
+animation:theEnter .8s ease-out forwards;
+}
+
+/* 8TH */
+
+.eight{
+font-size:11vw;
+transform:translateX(2000px);
+animation:eightEnter .8s ease-out forwards;
+animation-delay:.4s;
+}
+
+/* FRIEND */
+
+.friend{
+font-size:8vw;
+transform:translateY(1000px);
+animation:friendEnter .8s ease-out forwards;
+animation-delay:.8s;
+}
+
+@keyframes theEnter{
+to{
+opacity:1;
+transform:translateX(0);
+}
+}
+
+@keyframes eightEnter{
+to{
+opacity:1;
+transform:translateX(0);
+}
+}
+
+@keyframes friendEnter{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* Final Impact */
+
+.title.final{
+animation:
+shake .08s 12,
+glow 1s infinite alternate;
+}
+
+
+
+/* Glow */
+
+@keyframes glow{
+
+from{
+filter:brightness(1);
+}
+
+to{
+filter:brightness(1.5);
+}
+
+}
+
+/* Camera Shake */
+
+@keyframes shake{
+
+0%{transform:translate(0);}
+25%{transform:translate(-4px,2px);}
+50%{transform:translate(4px,-2px);}
+75%{transform:translate(-3px,2px);}
+100%{transform:translate(0);}
+
+}
+
+/* Background Pulse */
+
+@keyframes pulse{
+
+0%,100%{
+opacity:.5;
+}
+
+50%{
+opacity:1;
+}
+
+}
+
+/* Subtitle */
+
+.subtitle{
+position:absolute;
+bottom:80px;
+color:#bbb;
+font-size:18px;
+letter-spacing:8px;
+
+opacity:0;
+
+animation:sub 1s forwards;
+animation-delay:2s;
+}
+
+@keyframes sub{
+to{
+opacity:1;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="title" id="title">
+
+<span class="word the">THE</span>
+<span class="word eight">8TH</span>
+<span class="word friend">FRIEND</span>
+
+
+</div>
+
+<div class="subtitle">
+SOME FRIENDS NEVER LEAVE...
+</div>
+
+<script>
+
+setTimeout(()=>{
+
+document
+.getElementById("title")
+.classList.add("final");
+
+},1800);
+
+/* Random Horror Flicker */
+
+setInterval(()=>{
+
+let title =
+document.getElementById("title");
+
+title.style.opacity =
+Math.random()>.85 ? .75 : 1;
+
+},120);
+const particles =
+document.querySelector('.particles');
+
+function createSpark(){
+
+    const spark =
+    document.createElement('span');
+
+    spark.classList.add('spark');
+
+    spark.style.left =
+    Math.random()*100 + '%';
+
+    spark.style.bottom='0px';
+
+    spark.style.setProperty(
+    '--x',
+    (Math.random()*300-150)+'px'
+    );
+
+    spark.style.animationDuration =
+    (2+Math.random()*3)+'s';
+
+    particles.appendChild(spark);
+
+    setTimeout(()=>{
+        spark.remove();
+    },5000);
+
+}
+
+setInterval(createSpark,120);
+
+</script>
+
+</body>
+</html>
