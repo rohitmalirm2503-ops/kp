@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://karyampublicity.in/sitemap.xml
